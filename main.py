@@ -82,7 +82,7 @@ else:
 if prenatal:
     pre_stress_input = st.radio("Have you experienced stress or depression during your pregnancy?", ["I have experienced stress, depression, and/or negative life events that have impacted my mental health during pregnancy.","I have not experienced stress, depression, and/or negative life events that have impacted my mental health during pregnancy."],index=None)
     if pre_stress_input == "I have experienced stress, depression, and/or negative life events that have impacted my mental health during pregnancy.":
-        pre_stress = st.slider('Describe the level of stress you experienced during pregnancy.', 0.0, 100.0)
+        pre_stress = st.slider('Describe the level of stress you have experienced during pregnancy.', 0.0, 100.0)
         pre_stress_val = pre_stress * 25
         X_p_val = np.array([1, pre_stress_val,])
         X_p_val = sm.add_constant(X_p_val)
@@ -106,7 +106,7 @@ if postnatal:
     if pre_stress_input_post == "I did not experience stress, depression, and/or negative life events during pregnancy.":
         final_or = final_or * 1
     if post_stress_input == "I have experienced stress, depression, and/or negative life events since my child was born.":
-        post_stress = st.slider('Describe the level of stress you experienced since your child was born.', 0.0, 100.0)
+        post_stress = st.slider('Describe the level of stress you have experienced since your child was born.', 0.0, 100.0)
         post_stress_val = post_stress * 25
         X_po_val = np.array([1, post_stress_val,])
         X_po_val = sm.add_constant(X_po_val)
