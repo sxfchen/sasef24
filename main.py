@@ -6,7 +6,7 @@ from sklearn.neighbors import BallTree
 import statsmodels.api as sm
 from scipy import stats
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split, KFold
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 import seaborn as sns
 from statsmodels.graphics.api import abline_plot
@@ -120,18 +120,18 @@ if postnatal:
 else:
     st.write(" ")
 
-aq_data = pd.read_csv("uscities_aq - cbsa_trends.csv")
+aq_data = pd.read_csv("uscities_airquality.csv")
 aq_data = aq_data.ffill(axis=0)
 aq_data = aq_data.drop([1042,1041,1040,1039,1038,1037,1036,1035,1034,1033])
 
-locs = pd.read_csv("cbsa_lat_long - cbsa.csv")
+locs = pd.read_csv("cbsa_coordinates.csv")
 locs = locs.drop(['CBSA_TYPE',"ALAND","AWATER","ALAND_SQMI","AWATER_SQMI",'NAME','CSAFP'],axis=1)
 locs = locs.rename(columns={"INTPTLAT": "Lat", "INTPTLONG": "Long"})
 locs = locs.set_index("GEOID")
 locs.Lat = locs.Lat.apply(np.radians)
 locs.Long = locs.Long.apply(np.radians)
 
-zip_cbsa = pd.read_csv("zip_cbsa - zipcodes_geoids.csv",dtype={'ZIP': str})
+zip_cbsa = pd.read_csv("zip_to_cbsa.csv",dtype={'ZIP': str})
 zip_cbsa = zip_cbsa.drop(["RES_RATIO","BUS_RATIO",'OTH_RATIO',"TOT_RATIO"],axis=1)
 
 res_data = [{"Resource":"National Maternal Mental Health Hotline", "Link":"https://mchb.hrsa.gov/national-maternal-mental-health-hotline","Description":"Free, 24/7 confidential support during all stages of pregnancy"},{"Resource":"Postpartum Support International", "Link":"https://www.postpartum.net/","Description":"Information and professional online support groups for all types of new parents"},{"Resource":"CDC Maternal and Infant Health", "Link":"https://www.cdc.gov/reproductivehealth/maternalinfanthealth/index.html", "Description":"Information from experts for many pre- and postnatal conditions"},{"Resource":"Maternal Mental Health Leadership Alliance", "Link":"https://www.mmhla.org/","Description":"Futher resources for mental health, advocacy for improving maternal care"},{"Resource":"Substance Abuse and Mental Health Services Administration", "Link":"https://www.samhsa.gov/ ","Description":"Resources for parents struggling with substance abuse/mental health issues"},{"Resource":"Air Pollution and Pregnancy (EPA)", "Link":"https://www.epa.gov/children/promoting-good-prenatal-health-air-pollution-and-pregnancy-january-2010","Description":"Information about environmental exposure, avoidance steps for new/expecting mothers"},{"Resource": "Air Pollution (UNICEF)", "Link":"https://www.unicef.org/parenting/air-pollution","Description":"Information about the effects of air pollution specifically on children"},{"Resource":"Protecting Children’s Environmental Health (EPA)", "Link":"https://www.epa.gov/children","Description":"Resources for healthcare providers, teachers, educators, and caregivers"},{"Resource":"Moms Clean Air Force", "Link":"https://www.momscleanairforce.org/resources/topic/babies/","Description":"Resources about the health impacts of air pollution on young children"}] 
